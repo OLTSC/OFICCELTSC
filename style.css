@@ -292,8 +292,51 @@ body {
 .pillar-item h4 { font-size: 1.2rem; color: var(--navy-deep); }
 
 .image-wrapper { position: relative; }
-.image-wrapper img { width: 100%; border-radius: var(--curve); shadow: var(--shadow-premium); }
-.experience-badge { 
+/* Contenedor de la imagen: asegura que no se desborde en móviles */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* Evita que crezca más que su contenedor padre */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+/* La imagen propiamente: Corregido el error de 'shadow' */
+.image-wrapper img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción original */
+    display: block;
+    border-radius: var(--curve, 20px); /* Usa tu variable de curvatura */
+    
+    /* PROPIEDAD CORRECTA: box-shadow */
+    box-shadow: var(--shadow-premium, 0 10px 30px rgba(0,0,0,0.5)); 
+    
+    /* Optimización para móviles */
+    max-width: 100%;
+}
+
+/* El badge de experiencia que mencionas en el código de la imagen */
+.experience-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--ltsc-gold-metal);
+    padding: 10px 20px;
+    border-radius: 50px;
+    z-index: 10;
+}
+
+/* Media Query para asegurar que en Android no se vea "grandote" */
+@media (max-width: 480px) {
+    .image-wrapper {
+        padding: 0 10px; /* Un pequeño margen para que no toque los bordes del cel */
+    }
+    
+    .image-wrapper img {
+        border-radius: 12px; /* Curvatura más pequeña para pantallas pequeñas */
+    }
+}.experience-badge { 
     position: absolute; bottom: -30px; left: -30px; background: var(--gold-bright); 
     color: var(--navy-deep); padding: 30px; font-weight: 900; box-shadow: var(--shadow-lg);
 }
@@ -3494,4 +3537,44 @@ img {
     .value { font-size: 0.75rem; }
 
     .btn-access-elite { padding: 15px; font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+    .analyzer-header h2 {
+        font-size: 1.1rem !important; /* Título más compacto */
+    }
+
+    .security-icon {
+        font-size: 2.2rem !important; /* Escudo más pequeño */
+    }
+
+    .stat-item {
+        padding: 10px !important; /* Items más delgados */
+        gap: 8px !important;
+    }
+
+    .info .label {
+        font-size: 0.55rem !important; /* Etiquetas micro */
+    }
+
+    .info .value {
+        font-size: 0.75rem !important; /* Valores legibles pero pequeños */
+    }
+
+    .message-panel {
+        font-size: 0.7rem !important;
+        padding: 10px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .btn-access-elite {
+        padding: 14px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* --- PREVENCIÓN DE "CONTENIDO GIGANTE" --- */
+img, video, canvas {
+    max-width: 100% !important;
+    height: auto !important;
 }
